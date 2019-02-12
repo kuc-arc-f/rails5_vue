@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+<h1>Test</h1>
+<div>
+</div>
+<hr />
+
+<!-- -->
+<div id="hello">
+<p>Length: {{ length }}</p>
+<ul>
+  <li v-for="(item, i) in list" :key="item">
+    id: {{ item.id }} , title={{ item.title}}, body={{ item.body }}
+  </li>
+</ul>
+
+</div>
+
+<hr />
+<!--
+<a href="#" onClick="test1()">[ test ]<a>
+ -->
+<BR />
+
+<br />
+<%= link_to '[ Back ]', books_path %>
+
+<!-- -->
+<!-- -->
+<script>
+window.onload = function () {
+  load_proc();
+}
+//
+function load_proc(){
+  var app = new Vue({
+    el: '#hello',
+    data: { 
+       length: 0,
+       pages: [] ,
+       list: [],
+    },
+    created: function(){
+        axios
+        .get('/books/api_test')
+        .then(response =>{ 
+            // success
+            this.length = response.data.length;
+            for(var i = 0; i < response.data.length; i++) {
+//              console.log(response.data[i] );
+                this.list.push(response.data[i] );
+            }
+        })
+    }
+  });
+}
+
+</script>
